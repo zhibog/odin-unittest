@@ -1,48 +1,10 @@
-package test
+package ounit
 
 import "core:fmt"
 
-// @note(zh): Unit testing for the Odin programming language
+// Unit testing for the Odin programming language
 // Contains procs for checking of equality / non-equaility 
 // as well as checking bools and checking for nil / non-nil.
-// Supported types for equal / not equal:
-//    string
-//    cstring
-//    int
-//    uint
-//    rune
-//    u8
-//    u16
-//    u32
-//    u64
-//    u128
-//    i8
-//    i16
-//    i32
-//    i64
-//    i128
-//    f32
-//    f64
-//    u16le
-//    u32le
-//    u64le
-//    u128le
-//    i16le
-//    i32le
-//    i64le
-//    i128le
-//    u16be
-//    u32be
-//    u64be
-//    u128be
-//    i16be
-//    i32be
-//    i64be
-//    i128be
-//    complex64
-//    complex128
-//    bool
-// Useage example can be found in /example
 
 ///////////////////////////////////////////////
 // Equal
@@ -60,6 +22,8 @@ is_equal :: proc {
     test_equal_complex64, test_equal_complex128,
     test_equal_bool,
 };
+
+
 
 @private test_equal_string :: inline proc(expected, actual: string, loc := #caller_location)   do equal(expected == actual, expected, actual, loc);
 @private test_equal_cstring :: inline proc(expected, actual: cstring, loc := #caller_location) do equal(expected == actual, expected, actual, loc);
@@ -125,7 +89,7 @@ is_not_equal :: proc {
     test_not_equal_bool,
 };
 
-@private test_not_equal_string :: inline proc(expected, actual: string, loc := #caller_location)   do not_equal(expected != actual, expected, actual, loc);
+@private test_not_equal_string  :: inline proc(expected, actual: string, loc := #caller_location)  do not_equal(expected != actual, expected, actual, loc);
 @private test_not_equal_cstring :: inline proc(expected, actual: cstring, loc := #caller_location) do not_equal(expected != actual, expected, actual, loc);
 
 @private test_not_equal_int    :: inline proc(expected, actual: int, loc := #caller_location)      do not_equal(expected != actual, expected, actual, loc);
@@ -173,14 +137,14 @@ is_not_equal :: proc {
 @private test_not_equal_bool :: inline proc(expected, actual: bool, loc := #caller_location) do not_equal(expected != actual, expected, actual, loc);
 
 ///////////////////////////////////////////////
-// true / false
+// True / false
 ///////////////////////////////////////////////
 
 is_true  :: inline proc(condition: bool, loc := #caller_location)  do if !condition do fmt.printf("%v %v:%v Expected: \"true\" Actual: \"false\"\n", loc.file_path, loc.line, loc.column);
 is_false :: inline proc(condition: bool, loc := #caller_location)  do if condition  do fmt.printf("%v %v:%v Expected: \"false\" Actual: \"true\"\n", loc.file_path, loc.line, loc.column);
 
 ///////////////////////////////////////////////
-// nil / not-nil
+// Nil / not-nil
 ///////////////////////////////////////////////
 
 is_nil     :: inline proc(t: $T, loc := #caller_location)  do if t != nil  do fmt.printf("%v %v:%v Expected: \"nil\" Actual: \"%v\"\n", loc.file_path, loc.line, loc.column, t);
@@ -193,7 +157,6 @@ is_not_nil :: inline proc(t: $T, loc := #caller_location)  do if t == nil  do fm
 @private equal :: inline proc(condition: bool, expected, actual: any ,loc := #caller_location) {
     if !condition do fmt.printf("%v %v:%v Expected: \"%v\" Actual: \"%v\"\n",loc.file_path, loc.line, loc.column, expected, actual);
 }
-
 
 @private not_equal :: inline proc(condition: bool, expected, actual: any ,loc := #caller_location) {
     if !condition do fmt.printf("%v %v:%v Expected not: \"%v\" Actual: \"%v\"\n",loc.file_path, loc.line, loc.column, expected, actual);

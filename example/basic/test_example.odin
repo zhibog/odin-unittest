@@ -1,11 +1,9 @@
 package test_example
 
-import "../test"
+import test "../../ounit"
 
 // @note(zh): Example useage of the unit tests.
-// Failed tests will be printed out to the console. This is
-// done to make sure all tests run for a given package and
-// why they are not simply asserted.
+// Run with: odin run test_example.odin
 
 main :: proc() {
 
