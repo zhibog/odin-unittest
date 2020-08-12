@@ -156,6 +156,14 @@ print_ast :: proc(file_path: string, sb: ^strings.Builder) {
 ///////////////////////////////////////////////
 
 generate_import_decl :: proc(sb: ^strings.Builder, decl: ^ast.Import_Decl, indent: int) {
+    if decl.docs != nil {
+        for v, _ in &decl.docs.list {
+            if v.kind == tokenizer.Token_Kind.Comment {
+                generate_value(sb, &v, indent);
+                strings.write_string(sb, "\n");
+            }
+        }
+    }
     if decl.is_using do strings.write_string(sb, "using ");
     strings.write_string(sb, decl.import_tok.text);
     if decl.name.text != "" {
@@ -164,6 +172,15 @@ generate_import_decl :: proc(sb: ^strings.Builder, decl: ^ast.Import_Decl, inden
     }
     strings.write_string(sb, " ");   
     strings.write_string(sb, decl.relpath.text);
+    if decl.comment != nil {
+        strings.write_string(sb, " ");
+        for v, _ in &decl.comment.list {
+            if v.kind == tokenizer.Token_Kind.Comment {
+                generate_value(sb, &v, indent);
+                strings.write_string(sb, "\n");
+            }
+        }
+    }
 }
 
 generate_foreign_block_decl :: proc(sb: ^strings.Builder, r: ^ast.Foreign_Block_Decl, indent: int) {
@@ -199,6 +216,14 @@ generate_foreign_import_decl :: proc(sb: ^strings.Builder, r: ^ast.Foreign_Impor
 }
 
 generate_value_decl :: proc(sb: ^strings.Builder, decl: ^ast.Value_Decl, indent: int) {
+    if decl.docs != nil {
+        for v, _ in &decl.docs.list {
+            if v.kind == tokenizer.Token_Kind.Comment {
+                generate_value(sb, &v, indent);
+                strings.write_string(sb, "\n");
+            }
+        }
+    }
     if decl.is_using do strings.write_string(sb, "using ");
     for v, _ in decl.attributes {
         switch s in &v.derived {
