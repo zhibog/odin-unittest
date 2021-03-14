@@ -2,6 +2,12 @@
 Unit testing library/framework for the Odin programming language
 
 #
+## Builtin testing in the core library
+Odin has now added a way of builtin testing, similar to the approach Go has.
+Please consider using it, instead of this library.
+https://github.com/odin-lang/Odin/tree/master/core/testing
+
+#
 ## General:
 The package name ounit was chosen to make it unlikely to collide with anything.
 The original name was test but I decided it was too common.
